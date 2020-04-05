@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MaterialTable, { Column } from 'material-table';
-import TablePagination from '@material-ui/core/TablePagination';
+
+import { getUserData } from '../utils/Api';
 
 interface Row {
+  pic: string;
   name: string;
   surname: string;
-  birthYear: number;
-  birthCity: string;
+  email: string;
+  phone: string;
 }
 
 interface TableState {
@@ -15,29 +17,55 @@ interface TableState {
 }
 
 export default function Table() {
-  const [state, setState] = React.useState<TableState>({
+  const [state, setState] = useState<TableState>({
     columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
       {
-        title: 'Birth Place',
-        field: 'birthCity',
+        title: '',
+        field: 'pic',
+        render: rowData => <img src={rowData.pic} style={{ width: 100 }} />,
+        cellStyle: {
+          textAlign: 'center',
+        },
+      },
+      { title: 'First', field: 'name' },
+      { title: 'Last', field: 'surname' },
+      {
+        title: 'Email',
+        field: 'email',
+      },
+      {
+        title: 'Phone',
+        field: 'phone',
       },
     ],
-    data: [
-      {
-        name: 'Jon',
-        surname: 'Jackson',
-        birthYear: 1974,
-        birthCity: 'Lake Charles',
-      },
-    ],
+    data: [],
   });
+
+  useEffect(() => {
+    async function makeApiCall() {
+      try {
+        const res = await getUserData();
+        console.log(res.data.results);
+        setState({
+          ...state,
+          data: res.data.results.map((user: any) => ({
+            pic: user.picture.thumbnail,
+            name: user.name.first,
+            surname: user.name.last,
+            email: user.email,
+            phone: user.phone,
+          })),
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    makeApiCall();
+  }, []);
 
   return (
     <MaterialTable
-      title="Users"
+      title=""
       columns={state.columns}
       data={state.data}
       editable={{

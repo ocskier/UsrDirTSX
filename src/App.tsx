@@ -19,7 +19,7 @@ function App() {
     <Router>
       <div className="App">
         <Header input={search} changeHandler={handleSearchInputChange} />
-        <Route exact path="/directory" component={Home} />
+        <Route exact path="/" component={Home} />
       </div>
     </Router>
   );

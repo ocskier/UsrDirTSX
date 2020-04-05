@@ -37,7 +37,7 @@ export default function SearchAppBar(props: ISearchAppBarProps) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar style={{ minHeight: '100px' }}>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="open drawer">
             <MenuIcon />
           </IconButton>
