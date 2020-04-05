@@ -68,6 +68,7 @@ export default function Table() {
       title=""
       columns={state.columns}
       data={state.data}
+      options={{ sorting: true }}
       editable={{
         onRowAdd: (newData: Row) =>
           new Promise(resolve => {
