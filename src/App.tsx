@@ -16,7 +16,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename={'/UsrDirTSX'}>
       <div className="App">
         <Header input={search} changeHandler={handleSearchInputChange} />
         <Route exact path="/" component={Home} />
