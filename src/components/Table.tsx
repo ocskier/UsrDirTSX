@@ -22,7 +22,7 @@ export default function Table() {
       {
         title: '',
         field: 'pic',
-        render: rowData => <img src={rowData.pic} style={{ width: 100 }} />,
+        render: rowData => <img src={rowData.pic} style={{ width: 100, borderRadius: '50%' }} />,
         cellStyle: {
           textAlign: 'center',
         },
