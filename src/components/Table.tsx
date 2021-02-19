@@ -22,7 +22,9 @@ export default function Table() {
       {
         title: '',
         field: 'pic',
-        render: rowData => <img src={rowData.pic} style={{ width: 100, borderRadius: '50%' }} />,
+        render: function RowImg(rowData) {
+          return <img src={rowData.pic} style={{ width: 100, borderRadius: '50%' }} />;
+        },
         cellStyle: {
           textAlign: 'center',
         },
@@ -71,10 +73,10 @@ export default function Table() {
       options={{ sorting: true }}
       editable={{
         onRowAdd: (newData: Row) =>
-          new Promise(resolve => {
+          new Promise((resolve) => {
             setTimeout(() => {
-              resolve();
-              setState(prevState => {
+              resolve(null);
+              setState((prevState) => {
                 const data = [...prevState.data];
                 data.push(newData);
                 return { ...prevState, data };
@@ -82,11 +84,11 @@ export default function Table() {
             }, 600);
           }),
         onRowUpdate: (newData: Row, oldData: Row | undefined) =>
-          new Promise(resolve => {
+          new Promise((resolve) => {
             setTimeout(() => {
-              resolve();
+              resolve(null);
               if (oldData) {
-                setState(prevState => {
+                setState((prevState) => {
                   const data = [...prevState.data];
                   data[data.indexOf(oldData)] = newData;
                   return { ...prevState, data };
@@ -95,10 +97,10 @@ export default function Table() {
             }, 600);
           }),
         onRowDelete: (oldData: Row) =>
-          new Promise(resolve => {
+          new Promise((resolve) => {
             setTimeout(() => {
-              resolve();
-              setState(prevState => {
+              resolve(null);
+              setState((prevState) => {
                 const data = [...prevState.data];
                 data.splice(data.indexOf(oldData), 1);
                 return { ...prevState, data };
